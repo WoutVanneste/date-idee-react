@@ -13,7 +13,7 @@ const NavigationMenu = ({ setActivePage }) => {
     const [xPosAdd, setXPosAdd] = useState(0);
 
     const popIn = () => {
-        var offset = 60;
+        var offset = 62.5;
         setPop(true);
         setYPosHome(offset * 1);
         setYPosOutside(offset * 2);

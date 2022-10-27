@@ -4,12 +4,12 @@ import Content from './pages/Content';
 import { useState } from 'react';
 
 function App() {
-  const [activePage, setActivePage] = useState('');
-  
+  const [activePage, setActivePage] = useState('all');
+
   return (
     <div>
       <NavigationMenu setActivePage={setActivePage} />
-      <Content />
+      <Content activePage={activePage} />
     </div>
   );
 }
