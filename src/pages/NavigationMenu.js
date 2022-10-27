@@ -36,8 +36,8 @@ const NavigationMenu = ({ setActivePage }) => {
     }
 
     const goToPage = pageName => {
-        console.log('go to page', pageName);
-        if (pop) {
+        if (pop)
+        {
             setActivePage(pageName);
             setTimeout(() => {
                 popOut();

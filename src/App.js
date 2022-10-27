@@ -7,9 +7,9 @@ function App() {
   const [activePage, setActivePage] = useState('all');
 
   return (
-    <div>
+    <div className='wrapper'>
       <NavigationMenu setActivePage={setActivePage} />
-      <Content activePage={activePage} />
+      <Content setActivePage={setActivePage} activePage={activePage} />
     </div>
   );
 }
