@@ -1,6 +1,7 @@
 .navigationMenu
 {
     position: fixed;
+    z-index: 500;
     height: calc(100vh - 30px);
     width: calc(100vw - 30px);
 }

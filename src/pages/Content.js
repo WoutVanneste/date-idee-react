@@ -1,7 +1,7 @@
 import React from 'react';
 import './Content.css';
 
-const Content = ({ dates, activePage, setActivePage }) => {
+const Content = ({ dates, setDates, activePage, setActivePage }) => {
     const closePage = () => {
         if (activePage !== 'all')
         {
@@ -34,8 +34,20 @@ const Content = ({ dates, activePage, setActivePage }) => {
 
     const filterList = () => {
         return dates.filter(item => {
-            return item.type == activePage
+            return item.type === activePage
         })
+    }
+
+    const toggleDate = (id) => {
+        var newDates = dates.map(item => {
+            if (item.id === id) {
+                return {...item, isCompleted: !item.isCompleted};
+            }
+
+            return item;
+        });
+        
+        setDates(newDates);
     }
 
     const renderContent = () => {
@@ -50,8 +62,8 @@ const Content = ({ dates, activePage, setActivePage }) => {
         datesFiltered.forEach((item, index) => {
             results.push(<li className='dateItem' key={index}>
                 <div className='dateItemHeader'>
+                    <div onClick={() => toggleDate(item.id)} className='dateItemCheckWrapper'>{item.isCompleted ? '✔️' : '❌'}</div>
                     <h2>{item.title}</h2>
-                    <div>{item.isCompleted ? '✔️' : '❌'}</div>
                 </div>
                 <div className='dateItemBody'>
                     <p>toegevoegd op {new Date(item.createdOn).toLocaleDateString().toString()}</p>
@@ -67,7 +79,7 @@ const Content = ({ dates, activePage, setActivePage }) => {
             <h1>{renderPageTitle()}</h1>
             <div className={`contentImgWrapper ${activePage === 'all' ? 'hidden' : null}`}
             onClick={() => closePage()} >
-                <img className='contentImg' style={{transform: 'rotate(45deg)'}} src={require('../assets/add.png')} alt='close'/>
+                <img className='contentImg' style={{transform: 'rotate(45deg)'}} src={require('../assets/add-purple.png')} alt='close'/>
             </div>
         </div>
         <ul className='contentList'>

@@ -163,7 +163,8 @@ const dateIdeetjes = [
       <Content
         setActivePage={setActivePage}
         activePage={activePage}
-        dates={dates} />
+        dates={dates} 
+        setDates={setDates} />
     </div>
   );
 }
