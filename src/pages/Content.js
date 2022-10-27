@@ -25,6 +25,8 @@ const Content = ({ activePage, setActivePage }) => {
                 return '🎶 concert';
             case 'travel':
                 return '🛫 reizen';
+            case 'add':
+                return '💡 nieuw date idee';
             default:
                 return 'deze pagina bestaat niet'
         }
