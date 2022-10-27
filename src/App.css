@@ -3,6 +3,12 @@
   padding: 15px;
 }
 
+h1
+{
+  font-size: 28px;
+  font-weight: 600;
+}
+
 /*
 Gebroken wit #f9fafe
 Heel licht paars/blauw #ccd0f6

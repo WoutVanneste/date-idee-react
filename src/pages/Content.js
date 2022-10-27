@@ -8,9 +8,30 @@ const Content = ({ activePage, setActivePage }) => {
             setActivePage('all');
         }
     }
-    
+
+    const renderPageTitle = () => {
+        switch (activePage) {
+            case 'all':
+                return '❤️ date idee';
+            case 'home':
+                return '🏠 thuis';
+            case 'outside':
+                return '🧑‍🤝‍🧑 dagje uit';
+            case 'food':
+                return '🍕 hapje & drankje';
+            case 'movie':
+                return '🍿 movie night';
+            case 'concert':
+                return '🎶 concert';
+            case 'travel':
+                return '🛫 reizen';
+            default:
+                return 'deze pagina bestaat niet'
+        }
+    }
+
     return <div className='contentWrapper'>
-        <p>{activePage}</p>
+        <h1>{renderPageTitle()}</h1>
         <div className={`contentImgWrapper ${activePage === 'all' ? 'hidden' : null}`}
          onClick={() => closePage()} >
             <img className='contentImg' style={{transform: 'rotate(45deg)'}} src={require('../assets/add.png')} alt='close'/>
