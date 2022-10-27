@@ -1,8 +1,14 @@
-.contentWrapper
+.contentHeaderWrapper
 {
+    position: fixed;
+    width: calc(100% - 30px);
+    padding-top: 15px;
+    padding-bottom: 5px;
+    background-color: #f9fafe;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transform: translateY(-15px);
 }
 
 .contentImgWrapper
@@ -25,4 +31,40 @@
 {
     height: 30px;
     width: 30px;
+}
+
+.contentList
+{
+    padding-top: 55px;
+}
+
+h2
+{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.dateItem
+{
+    background-color: #ccd0f6;
+    border-radius: 7.5px;
+    
+    margin-bottom: 15px;
+}
+
+.dateItemHeader
+{
+    background-color: #ad7ffb;
+    color: #f9fafe;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 10px 15px;
+    border-radius: 7.5px 7.5px 0 0;
+}
+
+.dateItemBody
+{
+    padding: 15px;
 }

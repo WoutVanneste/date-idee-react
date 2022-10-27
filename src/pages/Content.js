@@ -1,7 +1,7 @@
 import React from 'react';
 import './Content.css';
 
-const Content = ({ activePage, setActivePage }) => {
+const Content = ({ dates, activePage, setActivePage }) => {
     const closePage = () => {
         if (activePage !== 'all')
         {
@@ -32,12 +32,47 @@ const Content = ({ activePage, setActivePage }) => {
         }
     }
 
-    return <div className='contentWrapper'>
-        <h1>{renderPageTitle()}</h1>
-        <div className={`contentImgWrapper ${activePage === 'all' ? 'hidden' : null}`}
-         onClick={() => closePage()} >
-            <img className='contentImg' style={{transform: 'rotate(45deg)'}} src={require('../assets/add.png')} alt='close'/>
+    const filterList = () => {
+        return dates.filter(item => {
+            return item.type == activePage
+        })
+    }
+
+    const renderContent = () => {
+        var results = [];
+
+        var datesFiltered = dates;
+
+        if (activePage !== 'all' && activePage !== 'add'){
+            datesFiltered = filterList();
+        }
+        
+        datesFiltered.forEach((item, index) => {
+            results.push(<li className='dateItem' key={index}>
+                <div className='dateItemHeader'>
+                    <h2>{item.title}</h2>
+                    <div>{item.isCompleted ? '✔️' : '❌'}</div>
+                </div>
+                <div className='dateItemBody'>
+                    <p>toegevoegd op {new Date(item.createdOn).toLocaleDateString().toString()}</p>
+                </div>
+            </li>)
+        });
+
+        return results;
+    }
+
+    return <div>
+        <div className='contentHeaderWrapper'>
+            <h1>{renderPageTitle()}</h1>
+            <div className={`contentImgWrapper ${activePage === 'all' ? 'hidden' : null}`}
+            onClick={() => closePage()} >
+                <img className='contentImg' style={{transform: 'rotate(45deg)'}} src={require('../assets/add.png')} alt='close'/>
+            </div>
         </div>
+        <ul className='contentList'>
+            {renderContent()}
+        </ul>
     </div>;
 }
 
