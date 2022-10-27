@@ -4,7 +4,7 @@
     z-index: 99999;
     width: calc(100% - 30px);
     left: 0;
-    padding-top: 15px;
+    padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 5px;
@@ -54,7 +54,7 @@
 .contentList
 {
     background-color: #f9fafe;
-    padding-top: 70px;
+    padding-top: 65px;
     padding-bottom: 50px;
 }
 
