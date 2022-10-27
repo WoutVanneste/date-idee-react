@@ -3,17 +3,18 @@ import './NavigationMenu.css';
 
 const NavigationMenu = ({ setActivePage }) => {
     
+    const beginValue = 0;
     const [pop, setPop] = useState(false);
-    const [yPosHome, setYPosHome] = useState(0);
-    const [yPosOutside, setYPosOutside] = useState(0);
-    const [yPosFood, setYPosFood] = useState(0);
-    const [yPosMovie, setYPosMovie] = useState(0);
-    const [yPosConcert, setYPosConcert] = useState(0);
-    const [yPosTravel, setYPosTravel] = useState(0);
-    const [xPosAdd, setXPosAdd] = useState(0);
+    const [yPosHome, setYPosHome] = useState(beginValue);
+    const [yPosOutside, setYPosOutside] = useState(beginValue);
+    const [yPosFood, setYPosFood] = useState(beginValue);
+    const [yPosMovie, setYPosMovie] = useState(beginValue);
+    const [yPosConcert, setYPosConcert] = useState(beginValue);
+    const [yPosTravel, setYPosTravel] = useState(beginValue);
+    const [xPosAdd, setXPosAdd] = useState(beginValue);
 
     const popIn = () => {
-        var offset = 62.5;
+        var offset = 70;
         setPop(true);
         setYPosHome(offset * 1);
         setYPosOutside(offset * 2);
@@ -26,13 +27,13 @@ const NavigationMenu = ({ setActivePage }) => {
 
     const popOut = () => {
         setPop(false);
-        setYPosHome(0);
-        setYPosOutside(0);
-        setYPosFood(0);
-        setYPosMovie(0);
-        setYPosConcert(0);
-        setYPosTravel(0);
-        setXPosAdd(0);
+        setYPosHome(beginValue);
+        setYPosOutside(beginValue);
+        setYPosFood(beginValue);
+        setYPosMovie(beginValue);
+        setYPosConcert(beginValue);
+        setYPosTravel(beginValue);
+        setXPosAdd(beginValue);
     }
 
     const goToPage = pageName => {
