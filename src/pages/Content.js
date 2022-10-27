@@ -12,23 +12,46 @@ const Content = ({ dates, setDates, activePage, setActivePage }) => {
     const renderPageTitle = () => {
         switch (activePage) {
             case 'all':
-                return '❤️ date idee';
+                return 'date idee';
             case 'home':
-                return '🏠 thuis';
+                return 'thuis';
             case 'outside':
-                return '🧑‍🤝‍🧑 dagje uit';
+                return 'samen doen';
             case 'food':
-                return '🍕 hapje & drankje';
+                return 'hapje & drankje';
             case 'movie':
-                return '🍿 movie night';
+                return 'movie night';
             case 'concert':
-                return '🎶 concert';
+                return 'concert';
             case 'travel':
-                return '🛫 reizen';
+                return 'reizen';
             case 'add':
-                return '💡 nieuw date idee';
+                return 'nieuw date idee';
             default:
                 return 'deze pagina bestaat niet'
+        }
+    }
+
+    const renderPageIcon = () => {
+        switch (activePage) {
+            case 'all':
+                return <img className='contentHeaderIcon' src={require('../assets/all-icon.png')} alt='date idee'/>;
+            case 'home':
+                return <img className='contentHeaderIcon' src={require('../assets/home-icon.png')} alt='thuis'/>;
+            case 'outside':
+                return <img className='contentHeaderIcon' src={require('../assets/outside-icon.png')} alt='samen doen'/>;
+            case 'food':
+                return <img className='contentHeaderIcon' src={require('../assets/food-icon.png')} alt='hapje & drankje'/>;
+            case 'movie':
+                return <img className='contentHeaderIcon' src={require('../assets/movie-icon.png')} alt='movie night'/>;
+            case 'concert':
+                return <img className='contentHeaderIcon' src={require('../assets/concert-icon.png')} alt='concert'/>;
+            case 'travel':
+                return <img className='contentHeaderIcon' src={require('../assets/travel-icon.png')} alt='reizen'/>;
+            case 'add':
+                return <img className='contentHeaderIcon' src={require('../assets/add-icon.png')} alt='nieuw date idee'/>;
+            default:
+                return null
         }
     }
 
@@ -38,31 +61,18 @@ const Content = ({ dates, setDates, activePage, setActivePage }) => {
         })
     }
 
-    const toggleDate = (id) => {
-        var newDates = dates.map(item => {
-            if (item.id === id) {
-                return {...item, isCompleted: !item.isCompleted};
-            }
-
-            return item;
-        });
-        
-        setDates(newDates);
-    }
-
     const renderContent = () => {
         var results = [];
 
         var datesFiltered = dates;
 
-        if (activePage !== 'all' && activePage !== 'add'){
+        if (activePage !== 'all'){
             datesFiltered = filterList();
         }
         
         datesFiltered.forEach((item, index) => {
             results.push(<li className='dateItem' key={index}>
                 <div className='dateItemHeader'>
-                    <div onClick={() => toggleDate(item.id)} className='dateItemCheckWrapper'>{item.isCompleted ? '✔️' : '❌'}</div>
                     <h2>{item.title}</h2>
                 </div>
                 <div className='dateItemBody'>
@@ -71,12 +81,22 @@ const Content = ({ dates, setDates, activePage, setActivePage }) => {
             </li>)
         });
 
-        return results;
+        if (activePage === 'add')
+        {
+            return <p>nieuwe ideetjes pagina binnenkort</p>
+        }
+        else
+        {
+            return results;
+        }
     }
 
     return <div>
         <div className='contentHeaderWrapper'>
-            <h1>{renderPageTitle()}</h1>
+            <div className='contentHeaderTitleWrapper'>
+                {renderPageIcon()}
+                <h1>{renderPageTitle()}</h1>
+            </div>
             <div className={`contentImgWrapper ${activePage === 'all' ? 'hidden' : null}`}
             onClick={() => closePage()} >
                 <img className='contentImg' style={{transform: 'rotate(45deg)'}} src={require('../assets/add-purple.png')} alt='close'/>
