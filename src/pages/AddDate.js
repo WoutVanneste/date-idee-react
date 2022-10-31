@@ -19,8 +19,6 @@ const AddDate = ({ db, setDates }) => {
         const documents = await getDocs(datesCollection);
         const docData = documents.docs.map(doc => doc.data());
         setDates(docData);
-        const jsonValue = JSON.stringify(docData);
-        localStorage.setItem('date-idee-dates', jsonValue);
       }
 
     const createDate = async () => 

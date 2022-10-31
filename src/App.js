@@ -180,8 +180,6 @@ function App() {
     const documents = await getDocs(datesCollection);
     const docData = documents.docs.map(doc => doc.data());
     setDates(docData);
-    const jsonValue = JSON.stringify(docData);
-    localStorage.setItem('date-idee-dates', jsonValue);
   }
   
   useEffect(() => {
@@ -189,17 +187,8 @@ function App() {
       setLoading(true);
       try
       {
-        const jsonValue = JSON.parse(localStorage.getItem('date-idee-dates'));
-        if (jsonValue !== null)
-        {
-          setDates(jsonValue);
-          setLoading(false);
-        }
-        else
-        {
           await getDates(db);
           setLoading(false);
-        }
       }
       catch (e)
       {
