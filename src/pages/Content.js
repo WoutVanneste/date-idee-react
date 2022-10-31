@@ -2,7 +2,7 @@ import React from 'react';
 import AddDate from './AddDate';
 import './Content.css';
 
-const Content = ({ dates, activePage, setActivePage, db }) => {
+const Content = ({ dates, setDates, activePage, setActivePage, db }) => {
     const closePage = () => {
         if (activePage !== 'all')
         {
@@ -77,14 +77,14 @@ const Content = ({ dates, activePage, setActivePage, db }) => {
                     <h2>{item.title}</h2>
                 </div>
                 <div className='dateItemBody'>
-                    <p>toegevoegd op {new Intl.DateTimeFormat('nl-NL').format(item.createdOn)}</p>
+                    <p>Idee dag: {new Intl.DateTimeFormat('nl-NL').format(item.createdOn)}</p>
                 </div>
             </li>)
         });
 
         if (activePage === 'add')
         {
-            return <AddDate db={db} />
+            return <AddDate setDates={setDates} db={db} />
         }
         else
         {

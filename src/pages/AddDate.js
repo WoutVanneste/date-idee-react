@@ -1,13 +1,27 @@
-import { collection, addDoc } from 'firebase/firestore/lite';
-import React, { useState } from 'react';
+import { collection, addDoc, getDocs } from 'firebase/firestore/lite';
+import React, { useState, useEffect } from 'react';
 import './AddDate.css';
 
-const AddDate = ({ db }) => {
+const AddDate = ({ db, setDates }) => {
     // add state to check one of the types
+    
+    useEffect(() => {
+        setDatesCollection(collection(db,'dates'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // add state for name
     const [nameInput, setNameInput] = useState('');
     const [type, setType] = useState('');
+    const [datesCollection, setDatesCollection] = useState(null);
+
+    const getDates = async () => {
+        const documents = await getDocs(datesCollection);
+        const docData = documents.docs.map(doc => doc.data());
+        setDates(docData);
+        const jsonValue = JSON.stringify(docData);
+        localStorage.setItem('date-idee-dates', jsonValue);
+      }
 
     const createDate = async () => 
     {
@@ -16,17 +30,19 @@ const AddDate = ({ db }) => {
             return;
         }
 
-        const datesCollection = collection(db, 'dates');
         const newItem = {
-            name: nameInput,
+            title: nameInput,
             type: type,
             createdOn: new Date().getTime(),
             isCompleted: false
           };
+
         await addDoc(datesCollection, newItem);
 
         setNameInput('');
         setType('');
+
+        await getDates();
     }
 
     return <div className='add-date-wrapper'>

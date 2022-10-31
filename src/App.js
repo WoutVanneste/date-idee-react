@@ -181,7 +181,6 @@ function App() {
     const docData = documents.docs.map(doc => doc.data());
     setDates(docData);
     const jsonValue = JSON.stringify(docData);
-    console.log('set local json', jsonValue);
     localStorage.setItem('date-idee-dates', jsonValue);
   }
   
