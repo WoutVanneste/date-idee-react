@@ -1,7 +1,8 @@
 import React from 'react';
+import AddDate from './AddDate';
 import './Content.css';
 
-const Content = ({ dates, setDates, activePage, setActivePage }) => {
+const Content = ({ dates, activePage, setActivePage, db }) => {
     const closePage = () => {
         if (activePage !== 'all')
         {
@@ -76,14 +77,14 @@ const Content = ({ dates, setDates, activePage, setActivePage }) => {
                     <h2>{item.title}</h2>
                 </div>
                 <div className='dateItemBody'>
-                    <p>toegevoegd op {new Date(item.createdOn).toLocaleDateString().toString()}</p>
+                    <p>toegevoegd op {new Intl.DateTimeFormat('nl-NL').format(item.createdOn)}</p>
                 </div>
             </li>)
         });
 
         if (activePage === 'add')
         {
-            return <p>nieuwe ideetjes pagina binnenkort</p>
+            return <AddDate db={db} />
         }
         else
         {

@@ -9,6 +9,14 @@ h1
   font-weight: 600;
 }
 
+.loading_wrapper
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 30px);
+}
+
 /*
 Gebroken wit #f9fafe
 Heel licht paars/blauw #ccd0f6
