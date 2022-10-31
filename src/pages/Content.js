@@ -84,7 +84,7 @@ const Content = ({ dates, setDates, activePage, setActivePage, db }) => {
 
         if (activePage === 'add')
         {
-            return <AddDate setDates={setDates} db={db} />
+            return <AddDate setActivePage={setActivePage} setDates={setDates} db={db} />
         }
         else
         {

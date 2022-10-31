@@ -2,7 +2,7 @@ import { collection, addDoc, getDocs } from 'firebase/firestore/lite';
 import React, { useState, useEffect } from 'react';
 import './AddDate.css';
 
-const AddDate = ({ db, setDates }) => {
+const AddDate = ({ db, setDates, setActivePage }) => {
     // add state to check one of the types
     
     useEffect(() => {
@@ -41,6 +41,8 @@ const AddDate = ({ db, setDates }) => {
         setType('');
 
         await getDates();
+
+        setActivePage(type);
     }
 
     return <div className='add-date-wrapper'>
