@@ -3,15 +3,8 @@ import { collection, doc, getDocs, updateDoc } from 'firebase/firestore/lite';
 import AddDate from './AddDate';
 import './Content.css';
 
-const Content = ({ dates, setDates, activePage, setActivePage, db }) => {
+const Content = ({ dates, setDates, activePage, setActivePage, db, closePage }) => {
     const [searchValue, setSearchValue] = useState("");
-
-    const closePage = () => {
-        if (activePage !== 'all')
-        {
-            setActivePage('all');
-        }
-    }
 
     const checkItem = async (item) => {
         var itemDocument = doc(db, "dates", item.id);

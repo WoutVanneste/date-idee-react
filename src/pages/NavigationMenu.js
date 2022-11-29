@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 import './NavigationMenu.css';
 
-const NavigationMenu = ({ setActivePage }) => {
-    
-    const beginValue = 0;
-    const [pop, setPop] = useState(false);
-    const [yPosHome, setYPosHome] = useState(beginValue);
-    const [yPosOutside, setYPosOutside] = useState(beginValue);
-    const [yPosFood, setYPosFood] = useState(beginValue);
-    const [yPosMovie, setYPosMovie] = useState(beginValue);
-    const [yPosConcert, setYPosConcert] = useState(beginValue);
-    const [yPosTravel, setYPosTravel] = useState(beginValue);
-    const [xPosAdd, setXPosAdd] = useState(beginValue);
-    const [xPosPast, setXPosPast] = useState(beginValue);
-
+const NavigationMenu = ({ 
+  pop, 
+  setPop, 
+  setActivePage,
+  yPosHome,
+  setYPosHome,
+  yPosOutside,
+  setYPosOutside,
+  yPosFood,
+  setYPosFood,
+  yPosMovie,
+  setYPosMovie,
+  yPosConcert,
+  setYPosConcert,
+  yPosTravel,
+  setYPosTravel,
+  xPosAdd,
+  setXPosAdd,
+  xPosPast,
+  setXPosPast,
+  beginValue }) => {
     const popIn = () => {
         var offset = 70;
         setPop(true);

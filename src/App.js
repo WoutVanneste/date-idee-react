@@ -23,6 +23,17 @@ function App() {
   const [activePage, setActivePage] = useState('all');
   const [dates, setDates] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [pop, setPop] = useState(false);
+
+  var beginValue = 0
+  const [yPosHome, setYPosHome] = useState(beginValue);
+  const [yPosOutside, setYPosOutside] = useState(beginValue);
+  const [yPosFood, setYPosFood] = useState(beginValue);
+  const [yPosMovie, setYPosMovie] = useState(beginValue);
+  const [yPosConcert, setYPosConcert] = useState(beginValue);
+  const [yPosTravel, setYPosTravel] = useState(beginValue);
+  const [xPosAdd, setXPosAdd] = useState(beginValue);
+  const [xPosPast, setXPosPast] = useState(beginValue);
 
   const getDates = async (db) => {
     const datesCollection = collection(db,'dates');
@@ -53,6 +64,22 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const closePage = () => {
+    setActivePage('all');
+    if (pop)
+    {
+      setPop(false);
+      setYPosHome(beginValue);
+      setYPosOutside(beginValue);
+      setYPosFood(beginValue);
+      setYPosMovie(beginValue);
+      setYPosConcert(beginValue);
+      setYPosTravel(beginValue);
+      setXPosAdd(beginValue);
+      setXPosPast(beginValue);
+    }
+  }
+
   return (
     <div className='wrapper'>
       {loading ? <div className='loading_wrapper'>
@@ -67,13 +94,34 @@ function App() {
 />
       </div> : 
       <div>
-        <NavigationMenu setActivePage={setActivePage} />
+        <NavigationMenu
+          pop={pop}
+          setPop={setPop} 
+          setActivePage={setActivePage}
+          yPosHome={yPosHome}
+          setYPosHome={setYPosHome}
+          yPosOutside={yPosOutside}
+          setYPosOutside={setYPosOutside}
+          yPosFood={yPosFood}
+          setYPosFood={setYPosFood}
+          yPosMovie={yPosMovie}
+          setYPosMovie={setYPosMovie}
+          yPosConcert={yPosConcert}
+          setYPosConcert={setYPosConcert}
+          yPosTravel={yPosTravel}
+          setYPosTravel={setYPosTravel}
+          xPosAdd={xPosAdd}
+          setXPosAdd={setXPosAdd}
+          xPosPast={xPosPast}
+          setXPosPast={setXPosPast}
+          beginValue={beginValue} />
         <Content
-        db={db}
-        setActivePage={setActivePage}
-        activePage={activePage}
-        dates={dates} 
-        setDates={setDates} />
+          db={db}
+          setActivePage={setActivePage}
+          activePage={activePage}
+          dates={dates} 
+          setDates={setDates}
+          closePage={closePage} />
       </div>}
     </div>
   );
