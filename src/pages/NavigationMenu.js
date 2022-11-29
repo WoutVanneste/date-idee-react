@@ -12,6 +12,7 @@ const NavigationMenu = ({ setActivePage }) => {
     const [yPosConcert, setYPosConcert] = useState(beginValue);
     const [yPosTravel, setYPosTravel] = useState(beginValue);
     const [xPosAdd, setXPosAdd] = useState(beginValue);
+    const [xPosPast, setXPosPast] = useState(beginValue);
 
     const popIn = () => {
         var offset = 70;
@@ -22,7 +23,8 @@ const NavigationMenu = ({ setActivePage }) => {
         setYPosMovie(offset * 4);
         setYPosConcert(offset * 5);
         setYPosTravel(offset * 6);
-        setXPosAdd(offset);
+        setXPosAdd(offset * 1);
+        setXPosPast(offset * 2);
     }
 
     const popOut = () => {
@@ -34,6 +36,7 @@ const NavigationMenu = ({ setActivePage }) => {
         setYPosConcert(beginValue);
         setYPosTravel(beginValue);
         setXPosAdd(beginValue);
+        setXPosPast(beginValue);
     }
 
     const goToPage = pageName => {
@@ -67,6 +70,9 @@ const NavigationMenu = ({ setActivePage }) => {
       </div>
       <div style={{transform: `translateX(-${xPosAdd}px)`}} className={`menuImgWrapper menuImgWrapperButton ${pop ? 'menuButton' : null}`} onClick={() => goToPage('add')}>
         <img className='menuImg menuImgSmall' src={require('../assets/add-icon.png')} alt='add' />
+      </div>
+      <div style={{transform: `translateX(-${xPosPast}px)`}} className={`menuImgWrapper menuImgWrapperButton ${pop ? 'menuButton' : null}`} onClick={() => goToPage('past')}>
+        <img className='menuImg menuImgSmall' src={require('../assets/past-icon.png')} alt='past' />
       </div>
       <div className='menuImgWrapper menuButton'
       style={pop ? { transform: `rotate(-90deg)`} : {transform: `rotate(0deg)`}}

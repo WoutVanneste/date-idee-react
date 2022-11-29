@@ -20,165 +20,17 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function App() {
-  
-  const dateIdeetjes = [
-    {
-      id: 11,
-      title: "knus in de zetel",
-      type: 'home',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 12,
-      title: "maskertje doen",
-      type: 'home',
-      isCompleted: true,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 21,
-      title: "poke bowl",
-      type: 'food',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 31,
-      title: "Suzan en Freek",
-      type: 'concert',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 41,
-      title: "Cars 3",
-      type: 'movie',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 51,
-      title: "Weekendje met de fam",
-      type: 'travel',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 61,
-      title: "Ikea date",
-      type: 'outside',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 11,
-      title: "knus in de zetel",
-      type: 'home',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 12,
-      title: "maskertje doen",
-      type: 'home',
-      isCompleted: true,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 21,
-      title: "poke bowl",
-      type: 'food',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 31,
-      title: "Suzan en Freek",
-      type: 'concert',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 41,
-      title: "Cars 3",
-      type: 'movie',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 51,
-      title: "Weekendje met de fam",
-      type: 'travel',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 61,
-      title: "Ikea date",
-      type: 'outside',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 11,
-      title: "knus in de zetel",
-      type: 'home',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 12,
-      title: "maskertje doen",
-      type: 'home',
-      isCompleted: true,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 21,
-      title: "poke bowl",
-      type: 'food',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 31,
-      title: "Suzan en Freek",
-      type: 'concert',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 41,
-      title: "Cars 3",
-      type: 'movie',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 51,
-      title: "Weekendje met de fam",
-      type: 'travel',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    },
-    {
-      id: 61,
-      title: "Ikea date",
-      type: 'outside',
-      isCompleted: false,
-      createdOn: new Date().getTime()
-    }
-  ]
-
   const [activePage, setActivePage] = useState('all');
-  const [dates, setDates] = useState(dateIdeetjes);
+  const [dates, setDates] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const getDates = async (db) => {
     const datesCollection = collection(db,'dates');
     const documents = await getDocs(datesCollection);
-    const docData = documents.docs.map(doc => doc.data());
+    const docData = documents.docs.map(doc => ({
+      data: doc.data(),
+      id: doc.id
+    }));
     setDates(docData);
   }
   

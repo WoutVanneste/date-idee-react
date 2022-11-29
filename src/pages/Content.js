@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { collection, doc, getDocs, updateDoc } from 'firebase/firestore/lite';
 import AddDate from './AddDate';
 import './Content.css';
 
 const Content = ({ dates, setDates, activePage, setActivePage, db }) => {
+    const [searchValue, setSearchValue] = useState("");
+
     const closePage = () => {
         if (activePage !== 'all')
         {
             setActivePage('all');
         }
+    }
+
+    const checkItem = async (item) => {
+        var itemDocument = doc(db, "dates", item.id);
+
+        try {
+            await updateDoc(itemDocument, { isCompleted: true, completedOn: Date.now()});
+        } catch (error) {
+            console.log('Error', error);
+        }
+
+        const datesCollection = collection(db,'dates');
+        const documents = await getDocs(datesCollection);
+        const docData = documents.docs.map(doc => ({
+          data: doc.data(),
+          id: doc.id
+        }));
+        setDates(docData);
     }
 
     const renderPageTitle = () => {
@@ -28,6 +49,8 @@ const Content = ({ dates, setDates, activePage, setActivePage, db }) => {
                 return 'reizen';
             case 'add':
                 return 'nieuw date idee';
+            case 'past':
+                return 'checklist';
             default:
                 return 'deze pagina bestaat niet'
         }
@@ -51,15 +74,54 @@ const Content = ({ dates, setDates, activePage, setActivePage, db }) => {
                 return <img className='contentHeaderIcon' src={require('../assets/travel-icon.png')} alt='reizen'/>;
             case 'add':
                 return <img className='contentHeaderIcon' src={require('../assets/add-icon.png')} alt='nieuw date idee'/>;
+            case 'past':
+                return <img className='contentHeaderIcon' src={require('../assets/past-icon.png')} alt='checklist'/>;
             default:
                 return null
         }
     }
 
-    const filterList = () => {
-        return dates.filter(item => {
-            return item.type === activePage
+    const filterCheckedDates = datesParam => {
+        return datesParam.filter(item => {
+            return item.data.isCompleted === false;
         })
+    }
+
+    const filterOnlyCheckedDates = datesParam => {
+        return datesParam.filter(item => {
+            return item.data.isCompleted === true;
+        })
+    }
+
+    const filterList = datesParam => {
+        return datesParam.filter(item => {
+            return item.data.type === activePage
+        })
+    }
+
+    const filterListBySearch = datesParam => {
+        return datesParam.filter(item => {
+            return item.data.title.toLowerCase().includes(searchValue.toLowerCase())
+        })
+    }
+
+    const renderSearchBar = () => {
+        if (activePage === 'all')
+        {
+            return <div className='search-date-wrapper'><input className='add-date-input' type="text" value={searchValue} placeholder='zoek date idee' onChange={e => setSearchValue(e.target.value)} /></div>
+        }
+    }
+
+    const renderCardBottom = (item) => {
+        return <div className='cardBottomWrapper'>
+            <div>
+                <p>Idee dag: {new Intl.DateTimeFormat('nl-NL').format(item.data.createdOn)}</p>
+                {activePage === 'past' ?? <p className='completedDateText'>Date dag: {new Intl.DateTimeFormat('nl-NL').format(item.data.completedOn)}</p>}
+            </div>
+            {activePage === 'past' || activePage === 'all' ? 
+            <img className='cardBottomImg' src={require(`../assets/${item.data.type}-icon.png`)} alt='check'/>
+            : null}
+        </div>
     }
 
     const renderContent = () => {
@@ -67,17 +129,29 @@ const Content = ({ dates, setDates, activePage, setActivePage, db }) => {
 
         var datesFiltered = dates;
 
-        if (activePage !== 'all'){
-            datesFiltered = filterList();
+        if (activePage === 'all')
+        {
+            datesFiltered = filterCheckedDates(datesFiltered);
+            datesFiltered = filterListBySearch(datesFiltered);
         }
-        
+        else if (activePage === 'past')
+        {
+            datesFiltered = filterOnlyCheckedDates(datesFiltered);
+        }
+        else
+        {
+            datesFiltered = filterCheckedDates(datesFiltered);
+            datesFiltered = filterList(datesFiltered);
+        }
+
         datesFiltered.forEach((item, index) => {
             results.push(<li className='dateItem' key={index}>
                 <div className='dateItemHeader'>
-                    <h2>{item.title}</h2>
+                    {item.data.isCompleted ? null : <img onClick={() => checkItem(item)} className='checkImgContent' src={require('../assets/checked-icon.png')} alt='check'/>}
+                    <h2>{item.data.title}</h2>
                 </div>
                 <div className='dateItemBody'>
-                    <p>Idee dag: {new Intl.DateTimeFormat('nl-NL').format(item.createdOn)}</p>
+                    {renderCardBottom(item)}
                 </div>
             </li>)
         });
@@ -104,6 +178,7 @@ const Content = ({ dates, setDates, activePage, setActivePage, db }) => {
             </div>
         </div>
         <ul className='contentList'>
+            {renderSearchBar()}
             {renderContent()}
         </ul>
     </div>;

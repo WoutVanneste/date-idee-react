@@ -1,4 +1,4 @@
-.add-date-wrapper
+.add-date-wrapper, .search-date-wrapper
 {
     position: relative;
     z-index: 999999;

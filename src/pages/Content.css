@@ -1,7 +1,7 @@
 .contentHeaderWrapper
 {
     position: fixed;
-    z-index: 99999;
+    z-index: 9999999;
     width: calc(100% - 30px);
     left: 0;
     padding-top: 10px;
@@ -14,6 +14,24 @@
     align-items: center;
     transform: translateY(-15px);
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, .25);
+}
+
+.cardBottomWrapper
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.completedDateText
+{
+    margin-top: 10px;
+}
+
+.cardBottomImg
+{
+    height: 35px;
+    width: 35px;
 }
 
 .contentHeaderTitleWrapper
@@ -49,6 +67,15 @@
 {
     height: 30px;
     width: 30px;
+}
+
+.checkImgContent
+{
+    height: 20px;
+    width: 20px;
+    position: relative;
+    z-index: 999999;
+    margin-right: 10px;
 }
 
 .contentList
