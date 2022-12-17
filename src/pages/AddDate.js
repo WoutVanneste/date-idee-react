@@ -17,7 +17,10 @@ const AddDate = ({ db, setDates, setActivePage }) => {
 
     const getDates = async () => {
         const documents = await getDocs(datesCollection);
-        const docData = documents.docs.map(doc => doc.data());
+        const docData = documents.docs.map(doc => ({
+          data: doc.data(),
+          id: doc.id
+        }));
         setDates(docData);
       }
 
@@ -42,7 +45,7 @@ const AddDate = ({ db, setDates, setActivePage }) => {
 
         await getDates();
 
-        setActivePage(type);
+          setActivePage(type);
     }
 
     return <div className='add-date-wrapper'>
