@@ -24,6 +24,24 @@ const Content = ({ dates, setDates, activePage, setActivePage, db, closePage }) 
         setDates(docData);
     }
 
+    const unCheckItem = async (item) => {
+        var itemDocument = doc(db, "dates", item.id);
+
+        try {
+            await updateDoc(itemDocument, { isCompleted: false });
+        } catch (error) {
+            console.log('Error', error);
+        }
+
+        const datesCollection = collection(db,'dates');
+        const documents = await getDocs(datesCollection);
+        const docData = documents.docs.map(doc => ({
+          data: doc.data(),
+          id: doc.id
+        }));
+        setDates(docData);
+    }
+
     const renderPageTitle = () => {
         switch (activePage) {
             case 'all':
@@ -109,7 +127,7 @@ const Content = ({ dates, setDates, activePage, setActivePage, db, closePage }) 
         return <div className='cardBottomWrapper'>
             <div>
                 <p>Idee dag: {new Intl.DateTimeFormat('nl-NL').format(item.data.createdOn)}</p>
-                {activePage === 'past' ?? <p className='completedDateText'>Date dag: {new Intl.DateTimeFormat('nl-NL').format(item.data.completedOn)}</p>}
+                {activePage === 'past' ? <p className='completedDateText'>Date dag: {new Intl.DateTimeFormat('nl-NL').format(item.data.completedOn)}</p> : null}
             </div>
             {activePage === 'past' || activePage === 'all' ? 
             <img className='cardBottomImg' src={require(`../assets/${item.data.type}-icon.png`)} alt='check'/>
@@ -140,7 +158,7 @@ const Content = ({ dates, setDates, activePage, setActivePage, db, closePage }) 
         datesFiltered.forEach((item, index) => {
             results.push(<li className='dateItem' key={index}>
                 <div className='dateItemHeader'>
-                    {item.data.isCompleted ? null : <img onClick={() => checkItem(item)} className='checkImgContent' src={require('../assets/checked-icon.png')} alt='check'/>}
+                    {item.data.isCompleted ? <img onClick={() => unCheckItem(item)} className='checkImgContent' src={require('../assets/checked-icon.png')} alt='check'/> : <img onClick={() => checkItem(item)} className='checkImgContent' src={require('../assets/checked-icon.png')} alt='check'/>}
                     <h2>{item.data.title}</h2>
                 </div>
                 <div className='dateItemBody'>
